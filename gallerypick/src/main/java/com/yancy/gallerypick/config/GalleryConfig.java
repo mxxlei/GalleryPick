@@ -23,6 +23,7 @@ public class GalleryConfig {
     private String filePath;            // 拍照以及截图后 存放的位置。    默认：/Gallery/Pictures
     private ArrayList<String> pathList;      // 已选择照片的路径
     private boolean isOpenCamera;             // 是否直接开启相机    默认：false
+    private String[] suffixIgnore;      //需要排除的后缀
 
     private boolean isCrop;                 // 是否开启裁剪   默认关闭
     private float aspectRatioX;             // 裁剪比         默认   1：1
@@ -53,6 +54,7 @@ public class GalleryConfig {
         this.maxWidth = builder.maxWidth;
         this.maxHeight = builder.maxHeight;
         this.provider = builder.provider;
+        this.suffixIgnore = builder.suffixIgnore;
         this.builder = builder;
     }
 
@@ -77,8 +79,14 @@ public class GalleryConfig {
         private String provider;
 
         private ArrayList<String> pathList = new ArrayList<>();
+        private String[] suffixIgnore;
 
         private boolean isOpenCamera = false;
+
+        public Builder suffixIgnore(String[] suffixIgnore){
+            this.suffixIgnore = suffixIgnore;
+            return this;
+        }
 
         public Builder provider(String provider) {
             this.provider = provider;
@@ -218,6 +226,10 @@ public class GalleryConfig {
 
     public String getProvider() {
         return provider;
+    }
+
+    public String[] getSuffixIgnore() {
+        return suffixIgnore;
     }
 }
 /*

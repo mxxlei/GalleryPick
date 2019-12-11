@@ -212,7 +212,11 @@ public class GalleryPickActivity extends BaseActivity {
                     tvGalleryFolder.setText(R.string.gallery_all_folder);
                 } else {
                     photoInfoList.clear();
-                    photoInfoList.addAll(folderInfo.photoInfoList);
+                    if (folderInfo.photoInfoList != null && folderInfo.photoInfoList.size() > 0) {
+                        for (PhotoInfo photoInfo : folderInfo.photoInfoList) {
+                            addToPhotoInfoList(photoInfo);
+                        }
+                    }
                     photoAdapter.notifyDataSetChanged();
                     tvGalleryFolder.setText(folderInfo.name);
                 }
@@ -224,6 +228,23 @@ public class GalleryPickActivity extends BaseActivity {
 
     }
 
+    private void addToPhotoInfoList(PhotoInfo photoInfo) {
+        String[] suffixs = galleryConfig.getSuffixIgnore();
+        if (suffixs != null && suffixs.length > 0) {
+            boolean ignore = false;
+            for (String suffix : suffixs) {
+                if (photoInfo.path.endsWith(suffix)) {
+                    ignore = true;
+                    break;
+                }
+            }
+            if (!ignore) {
+                photoInfoList.add(photoInfo);
+            }
+        } else {
+            photoInfoList.add(photoInfo);
+        }
+    }
 
     /**
      * 初始化配置
@@ -290,7 +311,11 @@ public class GalleryPickActivity extends BaseActivity {
                         } while (data.moveToNext());
 
                         photoInfoList.clear();
-                        photoInfoList.addAll(tempPhotoList);
+                        if(tempPhotoList != null && tempPhotoList.size() > 0){
+                            for(PhotoInfo photoInfo : tempPhotoList){
+                                addToPhotoInfoList(photoInfo);
+                            }
+                        }
 
                         List<String> tempPhotoPathList = new ArrayList<>();
                         for (PhotoInfo photoInfo : photoInfoList) {
