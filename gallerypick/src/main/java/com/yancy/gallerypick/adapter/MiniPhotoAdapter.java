@@ -2,11 +2,12 @@ package com.yancy.gallerypick.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yancy.gallerypick.R;
 import com.yancy.gallerypick.bean.PhotoInfo;

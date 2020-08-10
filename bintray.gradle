@@ -1,0 +1,33 @@
+//需要在项目的build.gradle中添加classpath 'com.novoda:bintray-release:0.9.2'
+apply plugin: 'com.novoda.bintray-release'
+
+print "$group:$name:$version"
+
+//设置编码，解决中文乱码
+//tasks.withType(Javadoc) {
+//    options{
+//        encoding "UTF-8"
+//        charSet 'UTF-8'
+//        links "http://docs.oracle.com/javase/8/docs/api"
+//    }
+//}
+tasks.withType(Javadoc).all {
+    enabled = false
+}
+
+InputStream is = new BufferedInputStream(new FileInputStream(getRootProject().file("local.properties")))
+Properties p = new Properties()
+p.load(is);
+
+//上传的库配置
+publish {
+    userOrg = 'xyz-mxlei'
+    groupId = group
+    artifactId = name
+    publishVersion = version
+    desc = "$group:$name:$version"
+    website = "https://bintray.com/xyz-mxlei/maven/$name"
+    bintrayUser = p.get("bintrayUser")
+    bintrayKey = p.get("bintrayKey")
+    dryRun = false
+}
