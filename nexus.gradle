@@ -9,7 +9,7 @@ def nexus = [
 ]
 //上传的库配置
 def nexus_lib = [
-        version    : '1.2.2',
+        version    : '1.2.4',
         artifactId : 'picturepick',
         groupId    : 'com.gainscha',
         packaging  : 'aar',
